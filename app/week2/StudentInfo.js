@@ -5,8 +5,8 @@ export default function StudentInfo() {
     <section>
       <p>Ayush Sainju</p>
       <p>
-        <Link href="https://github.com/YOUR_GITHUB_USERNAMEcprg306-assignments">
-          https://github.com/YOUR_GITHUB_USERNAME/cprg306-assignments
+        <Link href="https://github.com/ayushhhhsainjuuu/cprg306-assignments">
+            https://github.com/ayushhhhsainjuuu/cprg306-assignments
         </Link>
       </p>
     </section>
