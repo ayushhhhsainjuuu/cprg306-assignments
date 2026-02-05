@@ -15,13 +15,13 @@ export default function Home() {
         </li>
 
         <li>
-          <Link className="text-blue-600 hover:underline" href="/week-3">
-            Week 3 - Shopping List
+          <Link className="text-blue-600 hover:underline" href="/week-4">
+            Week 4 - Shopping List
           </Link>
         </li>
       </ul>
 
-      <p className="mt-6 text-gray-600">By Ayush Sainju</p>
+      <p className="mt-6">By Ayush Sainju</p>
     </main>
   );
 }
