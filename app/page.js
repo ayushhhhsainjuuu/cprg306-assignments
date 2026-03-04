@@ -37,6 +37,11 @@ export default function Home() {
             Week 6 - New Item Form with Validation
           </Link>
         </li>
+        <li>
+          <Link href="/week-7" className="text-blue-600 hover:underline">
+            Week 7 - Shopping List (Refactor)
+          </Link>
+        </li>
       </ul>
 
       <p className="mt-6">By Ayush Sainju</p>
