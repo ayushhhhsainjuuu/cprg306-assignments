@@ -1,12 +1,13 @@
 "use client";
+
 import { useState } from "react";
 import NewGroceryItem from "./NewGroceryItem";
 import GroceryItemList from "./GroceryItemList";
 import MealIdeas from "./MealIdeas";
-import groceryItems from "./grocery-items.json";
+import itemsData from "./grocery-items.json";
 
 export default function Page() {
-  const [items, setItems] = useState(groceryItems);
+  const [items, setItems] = useState(itemsData);
   const [selectedItemName, setSelectedItemName] = useState("");
 
   function handleAddItem(newItem) {
@@ -14,7 +15,6 @@ export default function Page() {
   }
 
   function handleItemSelect(item) {
-    // Clean name: remove comma/quantity suffix and emoji characters
     const cleaned = item.name
       .split(",")[0]
       .replace(/[\u{1F300}-\u{1FFFF}]/gu, "")
@@ -24,14 +24,14 @@ export default function Page() {
   }
 
   return (
-    <main>
-      <h1>Shopping List + Meal Ideas</h1>
-      <div style={{ display: "flex", gap: "2rem" }}>
-        <div>
+    <main className="min-h-screen bg-gray-50 p-8">
+      <h1 className="text-3xl font-bold mb-8">Shopping List + Meal Ideas</h1>
+      <div className="flex flex-col md:flex-row gap-8 items-start">
+        <div className="w-full max-w-xl">
           <NewGroceryItem onAddItem={handleAddItem} />
           <GroceryItemList items={items} onItemSelect={handleItemSelect} />
         </div>
-        <div>
+        <div className="flex-1">
           <MealIdeas ingredient={selectedItemName} />
         </div>
       </div>

@@ -1,9 +1,10 @@
 "use client";
-import { useEffect, useState } from "react";
+
+import { useState, useEffect } from "react";
 
 async function fetchMealIdeas(ingredient) {
   const res = await fetch(
-    `https://www.themealdb.com/api/json/v1/1/filter.php?i=${ingredient}`
+    `https://www.themealdb.com/api/json/v1/1/filter.php?i=${encodeURIComponent(ingredient)}`
   );
   const data = await res.json();
   return data.meals || [];
@@ -22,14 +23,21 @@ export default function MealIdeas({ ingredient }) {
     else setMeals([]);
   }, [ingredient]);
 
+  if (!ingredient) return null;
+
   return (
     <div>
-      {ingredient && <h2>Meal ideas for "{ingredient}"</h2>}
-      <ul>
+      <h2 className="text-xl font-semibold mb-4">Meal ideas for &ldquo;{ingredient}&rdquo;</h2>
+      <div className="grid grid-cols-2 gap-3">
         {meals.map((meal) => (
-          <li key={meal.idMeal}>{meal.strMeal}</li>
+          <div
+            key={meal.idMeal}
+            className="bg-white border border-gray-200 rounded-lg p-3 text-sm text-gray-800"
+          >
+            {meal.strMeal}
+          </div>
         ))}
-      </ul>
+      </div>
     </div>
   );
 }
