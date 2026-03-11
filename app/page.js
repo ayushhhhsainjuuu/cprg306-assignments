@@ -42,6 +42,12 @@ export default function Home() {
             Week 7 - Shopping List (Refactor)
           </Link>
         </li>
+        <li>
+          <Link href="/week-8" className="text-blue-600 hover:underline">
+            Week 8 - Shopping List with meal ideas
+          </Link>
+        </li>
+      
       </ul>
 
       <p className="mt-6">By Ayush Sainju</p>
