@@ -26,28 +26,36 @@ export default function Home() {
           </Link>
         </li>
 
-        
         <li>
           <Link href="/week-5" className="text-blue-600 hover:underline">
             Week 5 - New Item Form
           </Link>
         </li>
+
         <li>
           <Link href="/week-6" className="text-blue-600 hover:underline">
             Week 6 - New Item Form with Validation
           </Link>
         </li>
+
         <li>
           <Link href="/week-7" className="text-blue-600 hover:underline">
             Week 7 - Shopping List (Refactor)
           </Link>
         </li>
+
         <li>
           <Link href="/week-8" className="text-blue-600 hover:underline">
             Week 8 - Shopping List with meal ideas
           </Link>
         </li>
-      
+
+        {/* ✅ ADD THIS */}
+        <li>
+          <Link href="/week-9" className="text-blue-600 hover:underline">
+            Week 9 - Firebase Auth Shopping List
+          </Link>
+        </li>
       </ul>
 
       <p className="mt-6">By Ayush Sainju</p>
