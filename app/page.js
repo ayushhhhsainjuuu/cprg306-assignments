@@ -3,11 +3,11 @@ import Link from "next/link";
 export default function Home() {
   return (
     <main className="p-6">
-      <h1 className="text-2xl font-bold mb-4">
+      <h1 className="mb-4 text-2xl font-bold">
         CPRG 306: Web Development 2 - Assignments
       </h1>
 
-      <ul className="list-disc pl-6 space-y-2">
+      <ul className="list-disc space-y-2 pl-6">
         <li>
           <Link href="/week-2" className="text-blue-600 hover:underline">
             Week 2 - Shopping List
@@ -50,7 +50,6 @@ export default function Home() {
           </Link>
         </li>
 
-        {/* ✅ ADD THIS */}
         <li>
           <Link href="/week-9" className="text-blue-600 hover:underline">
             Week 9 - Firebase Auth Shopping List
