@@ -3,10 +3,10 @@
 import Link from "next/link";
 import { useUserAuth } from "../../contexts/AuthContext";
 
-import itemsData from "./grocery-items.json";
-import GroceryItemList from "./components/GroceryItemList";
-import MealIdeas from "./components/MealIdeas";
-import NewGroceryItem from "./components/NewGroceryItem";
+import itemsData from "../grocery-items.json";
+import GroceryItemList from "../components/GroceryItemList";
+import MealIdeas from "../components/MealIdeas";
+import NewGroceryItem from "../components/NewGroceryItem";
 import { useState } from "react";
 
 export default function ShoppingListPage() {
