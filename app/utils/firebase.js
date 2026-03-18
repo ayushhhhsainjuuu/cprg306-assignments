@@ -10,13 +10,5 @@ const firebaseConfig = {
   appId: process.env.NEXT_PUBLIC_FIREBASE_APP_ID,
 };
 
-let app;
-let auth;
-
-// 🚨 ONLY run in browser (THIS FIXES YOUR ERROR)
-if (typeof window !== "undefined") {
-  app = getApps().length ? getApps()[0] : initializeApp(firebaseConfig);
-  auth = getAuth(app);
-}
-
-export { auth };
+const app = getApps().length ? getApps()[0] : initializeApp(firebaseConfig);
+export const auth = getAuth(app);
