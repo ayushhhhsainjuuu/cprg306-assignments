@@ -1,0 +1,12 @@
+[
+  { "id": "1", "name": "apples 🍎", "quantity": 4, "category": "produce" },
+  { "id": "2", "name": "milk 🥛", "quantity": 1, "category": "dairy" },
+  { "id": "3", "name": "bananas 🍌", "quantity": 6, "category": "produce" },
+  { "id": "4", "name": "bread 🍞", "quantity": 2, "category": "bakery" },
+  { "id": "5", "name": "broccoli 🥦", "quantity": 3, "category": "produce" },
+  { "id": "6", "name": "chicken breasts, 1 kg 🍗", "quantity": 1, "category": "meat" },
+  { "id": "7", "name": "pasta sauce 🍝", "quantity": 2, "category": "canned goods" },
+  { "id": "8", "name": "eggs, 12-pack 🥚", "quantity": 2, "category": "dairy" },
+  { "id": "9", "name": "cheese, 500 g 🧀", "quantity": 1, "category": "dairy" },
+  { "id": "10", "name": "frozen peas, 1 kg 🫛", "quantity": 1, "category": "frozen foods" }
+]
