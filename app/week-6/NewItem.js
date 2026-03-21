@@ -1,6 +1,6 @@
 "use client";
 
-import { useId, useState } from "react";
+import { useState } from "react";
 
 const CATEGORY_OPTIONS = [
   { value: "produce", label: "Produce" },
@@ -16,28 +16,25 @@ const CATEGORY_OPTIONS = [
   { value: "other", label: "Other" },
 ];
 
-export default function NewItem() {
-  const baseId = useId();
-
-  const nameId = `${baseId}-name`;
-  const quantityId = `${baseId}-quantity`;
-  const categoryId = `${baseId}-category`;
-
+export default function NewItem({ onAddItem }) {
   const [name, setName] = useState("");
   const [quantity, setQuantity] = useState(1);
   const [category, setCategory] = useState("produce");
 
-  function handleSubmit(event) {
-    event.preventDefault();
+  function handleSubmit(e) {
+    e.preventDefault();
 
-    const item = {
-      name: name.trim(),
+    const trimmedName = name.trim();
+    if (!trimmedName) return;
+
+    const newItem = {
+      id: crypto.randomUUID(),
+      name: trimmedName,
       quantity,
       category,
     };
 
-    console.log(item);
-    alert(`Added: ${item.name}, quantity: ${item.quantity}, category: ${item.category}`);
+    onAddItem(newItem);
 
     setName("");
     setQuantity(1);
@@ -45,73 +42,63 @@ export default function NewItem() {
   }
 
   return (
-    <form
-      onSubmit={handleSubmit}
-      className="w-full max-w-md rounded-lg bg-white p-6 shadow-md space-y-4 text-gray-900"
-    >
-      {/* Name */}
+    <form onSubmit={handleSubmit} className="mb-6 space-y-4">
       <div>
-        <label htmlFor={nameId} className="block text-sm font-medium mb-1">
+        <label htmlFor="name" className="block font-medium mb-1">
           Item Name
         </label>
         <input
-          id={nameId}
+          id="name"
           type="text"
-          required
           value={name}
           onChange={(e) => setName(e.target.value)}
-          className="w-full p-2 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-900 bg-white"
-          placeholder="e.g., Bread"
+          required
+          placeholder="Enter item name"
+          className="border rounded p-2 w-full"
         />
       </div>
 
-      {/* Quantity + Category + Submit (aligned) */}
-      <div className="flex gap-3 items-end">
-        {/* Quantity */}
-        <div className="w-28">
-          <label htmlFor={quantityId} className="block text-sm font-medium mb-1">
-            Quantity
-          </label>
-          <input
-            id={quantityId}
-            type="number"
-            min={1}
-            max={99}
-            value={quantity}
-            onChange={(e) => setQuantity(Number(e.target.value))}
-            className="w-full p-2 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-900 bg-white"
-          />
-        </div>
-
-        {/* Category */}
-        <div className="flex-1">
-          <label htmlFor={categoryId} className="block text-sm font-medium mb-1">
-            Category
-          </label>
-          <select
-            id={categoryId}
-            value={category}
-            onChange={(e) => setCategory(e.target.value)}
-            className="w-full p-2 rounded-md border border-gray-300 bg-white focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-900"
-          >
-            {CATEGORY_OPTIONS.map((item) => (
-              <option key={item.value} {...item}>
-                {item.label}
-              </option>
-            ))}
-          </select>
-        </div>
-
-        {/* Submit */}
-        <button
-          type="submit"
-          className="h-[42px] w-12 rounded-md bg-blue-600 text-white font-bold hover:bg-blue-700 active:bg-blue-800 transition"
-          aria-label="Add item"
-          title="Add item"
-        >
-          +
-        </button>
+      <div>
+        <label htmlFor="quantity" className="block font-medium mb-1">
+          Quantity
+        </label>
+        <input
+          id="quantity"
+          type="number"
+          min="1"
+          max="20"
+          value={quantity}
+          onChange={(e) => setQuantity(Number(e.target.value))}
+          className="border rounded p-2 w-full"
+        />
       </div>
+
+      <div>
+        <label htmlFor="category" className="block font-medium mb-1">
+          Category
+        </label>
+        <select
+          id="category"
+          value={category}
+          onChange={(e) => setCategory(e.target.value)}
+          className="border rounded p-2 w-full"
+        >
+          {CATEGORY_OPTIONS.map((option) => (
+            <option key={option.value} value={option.value}>
+              {option.label}
+            </option>
+          ))}
+        </select>
+      </div>
+
+      <button
+        type="submit"
+        aria-label="Add item"
+        title="Add item"
+        className="bg-blue-600 text-white px-4 py-2 rounded"
+      >
+        Add Item
+      </button>
     </form>
   );
 }

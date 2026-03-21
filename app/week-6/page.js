@@ -1,15 +1,22 @@
-    
+"use client";
+
+import { useState } from "react";
 import NewItem from "./NewItem";
+import ItemList from "./item-list";
+import itemsData from "./grocery-items.json";
 
 export default function Page() {
+  const [items, setItems] = useState(itemsData);
+
+  function handleAddItem(item) {
+    setItems((prevItems) => [...prevItems, item]);
+  }
+
   return (
-    <main className="min-h-screen bg-slate-900 flex items-center justify-center p-6">
-      <div className="w-full max-w-md">
-        <h1 className="text-white text-3xl font-bold mb-6 text-center">
-          New Shopping Item
-        </h1>
-        <NewItem />
-      </div>
+    <main className="p-4">
+      <h1 className="text-2xl font-bold mb-4">Shopping List</h1>
+      <NewItem onAddItem={handleAddItem} />
+      <ItemList items={items} />
     </main>
   );
 }
