@@ -55,6 +55,11 @@ export default function Home() {
             Week 9 - Firebase Auth Shopping List
           </Link>
         </li>
+        <li>
+          <Link href="/week-10" className="text-blue-600 hover:underline">
+            Week 10 - Firebase Auth Shopping List
+          </Link>
+        </li>
       </ul>
 
       <p className="mt-6">By Ayush Sainju</p>
