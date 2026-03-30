@@ -3,7 +3,7 @@
 import { useUserAuth } from "../contexts/AuthContext";
 import Link from "next/link";
 
-export default function Week9Page() {
+export default function Week10Page() {
   const { user, gitHubSignIn, firebaseSignOut } = useUserAuth();
 
   const handleLogin = async () => {
@@ -24,14 +24,14 @@ export default function Week9Page() {
 
   return (
     <main className="p-6">
-      <h1 className="text-2xl font-bold mb-4">Week 9 - Firebase Auth</h1>
+      <h1 className="mb-4 text-2xl font-bold">Week 10 - Firestore Shopping List</h1>
 
       {!user ? (
         <>
           <p className="mb-4">Please login to continue</p>
           <button
             onClick={handleLogin}
-            className="bg-black text-white px-4 py-2 rounded"
+            className="rounded bg-black px-4 py-2 text-white"
           >
             Login with GitHub
           </button>
@@ -39,20 +39,20 @@ export default function Week9Page() {
       ) : (
         <>
           <p className="mb-4">
-            Welcome, {user.displayName} ({user.email})
+            Welcome, {user.displayName || "User"} ({user.email})
           </p>
 
           <div className="flex gap-4">
             <button
               onClick={handleLogout}
-              className="bg-red-500 text-white px-4 py-2 rounded"
+              className="rounded bg-red-500 px-4 py-2 text-white"
             >
               Logout
             </button>
 
             <Link
-              href="/week-9/shopping-list"
-              className="bg-blue-500 text-white px-4 py-2 rounded"
+              href="/week-10/shopping-list"
+              className="rounded bg-blue-500 px-4 py-2 text-white"
             >
               Go to Shopping List
             </Link>
