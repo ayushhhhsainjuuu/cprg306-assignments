@@ -60,6 +60,13 @@ export default function Home() {
             Week 10 - Firebase Auth Shopping List
           </Link>
         </li>
+        <li>
+          <Link href="/manganest">
+            <div className="mt-6 p-4 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition cursor-pointer">
+              MangaNest Project
+            </div>
+          </Link>
+        </li> 
       </ul>
 
       <p className="mt-6">By Ayush Sainju</p>
