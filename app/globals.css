@@ -1,8 +1,7 @@
-
 @import "tailwindcss";
 @variant dark (&:where(.dark, .dark *));
 
-/* ── Light mode ── */
+/* ── MangaNest theme variables ── */
 :root {
   --bg-primary: #f8f6f2;
   --bg-secondary: #ede9e3;
@@ -26,7 +25,6 @@
   --skeleton: #e5e0d8;
 }
 
-/* ── Dark mode ── */
 .dark {
   --bg-primary: #090912;
   --bg-secondary: #0f0f1a;
@@ -48,16 +46,4 @@
   --error-border: #be123c;
   --error-text: #fda4af;
   --skeleton: #1a1a2e;
-}
-
-body {
-  background-color: var(--bg-primary);
-  color: var(--text-primary);
-  transition: background-color 0.2s ease, color 0.2s ease;
-}
-/* Week pages reset */
-[class*="week"] main,
-.week-page {
-  background-color: white;
-  color: black;
 }
