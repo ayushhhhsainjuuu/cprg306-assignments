@@ -4,11 +4,14 @@ import { useUserAuth } from "../contexts/AuthContext";
 import Link from "next/link";
 
 export default function Week10Page() {
-  const { user, gitHubSignIn, firebaseSignOut } = useUserAuth();
+  const auth = useUserAuth();
+  const user = auth?.user;
+  const gitHubSignIn = auth?.gitHubSignIn;
+  const firebaseSignOut = auth?.firebaseSignOut;
 
   const handleLogin = async () => {
     try {
-      await gitHubSignIn();
+      await gitHubSignIn?.();
     } catch (error) {
       console.log(error);
     }
@@ -16,7 +19,7 @@ export default function Week10Page() {
 
   const handleLogout = async () => {
     try {
-      await firebaseSignOut();
+      await firebaseSignOut?.();
     } catch (error) {
       console.log(error);
     }
@@ -41,7 +44,6 @@ export default function Week10Page() {
           <p className="mb-4">
             Welcome, {user.displayName || "User"} ({user.email})
           </p>
-
           <div className="flex gap-4">
             <button
               onClick={handleLogout}
@@ -49,7 +51,6 @@ export default function Week10Page() {
             >
               Logout
             </button>
-
             <Link
               href="/week-10/shopping-list"
               className="rounded bg-blue-500 px-4 py-2 text-white"
