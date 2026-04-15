@@ -10,7 +10,9 @@ import MealIdeas from "./components/MealIdeas";
 import NewGroceryItem from "./components/NewGroceryItem";
 
 export default function ShoppingListPage() {
-  const { user, firebaseSignOut } = useUserAuth();
+  const authContext = useUserAuth();
+  const user = authContext?.user;
+  const firebaseSignOut = authContext?.firebaseSignOut;
   const [items, setItems] = useState(itemsData);
   const [selectedItemName, setSelectedItemName] = useState("");
 
@@ -34,13 +36,12 @@ export default function ShoppingListPage() {
       .replaceAll("🍽️", "")
       .trim()
       .toLowerCase();
-
     setSelectedItemName(cleanedName);
   };
 
   const handleLogout = async () => {
     try {
-      await firebaseSignOut();
+      await firebaseSignOut?.();
     } catch (error) {
       console.log(error);
     }
@@ -67,7 +68,6 @@ export default function ShoppingListPage() {
             Welcome, {user.displayName || user.email}
           </p>
         </div>
-
         <div className="flex gap-3">
           <Link
             href="/week-9"
