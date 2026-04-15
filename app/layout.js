@@ -1,4 +1,5 @@
 import "./globals.css";
+import { AuthContextProvider } from "./contexts/AuthContext";
 
 export const metadata = {
   title: "MangaNest",
@@ -24,7 +25,11 @@ export default function RootLayout({ children }) {
           }}
         />
       </head>
-      <body style={{ margin: 0, padding: 0 }}>{children}</body>
+      <body style={{ margin: 0, padding: 0 }}>
+        <AuthContextProvider>
+          {children}
+        </AuthContextProvider>
+      </body>
     </html>
   );
 }
