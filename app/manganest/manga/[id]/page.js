@@ -3,10 +3,10 @@
 import { useState, useEffect } from "react";
 import { useParams, useRouter } from "next/navigation";
 import Image from "next/image";
-import { getMangaById } from "../../utils/jikan";
-import { db, auth } from "../../utils/firebase";
 import { doc, setDoc, deleteDoc, getDoc } from "firebase/firestore";
 import { onAuthStateChanged } from "firebase/auth";
+import { getMangaById } from "../../../utils/jikan";
+import { db, auth } from "../../../utils/firebase";
 
 export default function MangaDetailPage() {
   const { id } = useParams();
