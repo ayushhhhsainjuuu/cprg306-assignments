@@ -1,164 +1,183 @@
 "use client";
 
 import { useState } from "react";
-import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { Mail, Lock } from "lucide-react";
-import { useUserAuth } from "@/app/contexts/AuthContext";
+import Link from "next/link";
+import { auth } from "../../utils/firebase";
+import {
+  signInWithEmailAndPassword,
+  signInWithPopup,
+  GoogleAuthProvider,
+} from "firebase/auth";
+
+const googleProvider = new GoogleAuthProvider();
 
 export default function LoginPage() {
-  const { logIn, googleSignIn } = useUserAuth();
   const router = useRouter();
-
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [googleLoading, setGoogleLoading] = useState(false);
+  const [error, setError] = useState(null);
 
-  const handleSubmit = async (e) => {
+  const handleEmailLogin = async (e) => {
     e.preventDefault();
-    setError("");
-
+    setError(null);
+    setLoading(true);
     try {
-      await logIn(email, password);
+      await signInWithEmailAndPassword(auth, email, password);
       router.push("/manganest");
     } catch (err) {
-      setError("Invalid email or password.");
-      console.error(err);
+      setError(getFriendlyError(err.code));
+    } finally {
+      setLoading(false);
     }
   };
 
   const handleGoogleLogin = async () => {
-    setError("");
-
+    setError(null);
+    setGoogleLoading(true);
     try {
-      await googleSignIn();
+      await signInWithPopup(auth, googleProvider);
       router.push("/manganest");
     } catch (err) {
-      setError("Google sign-in failed.");
-      console.error(err);
+      setError(getFriendlyError(err.code));
+    } finally {
+      setGoogleLoading(false);
     }
   };
 
   return (
-    <div className="relative min-h-screen overflow-hidden bg-[#0a0814] text-white">
-      <div
-        className="absolute inset-0 opacity-20"
-        style={{
-          backgroundImage:
-            "repeating-linear-gradient(135deg, transparent 0px, transparent 28px, rgba(147,51,234,0.18) 29px, transparent 30px)",
-        }}
-      />
-
-      <div className="absolute left-1/2 top-28 h-72 w-72 -translate-x-1/2 rounded-full bg-purple-700/20 blur-3xl" />
-
-      <div className="relative z-10 flex min-h-screen flex-col items-center justify-center px-4 py-10">
-        <div className="mb-6 flex h-20 w-20 items-center justify-center rounded-full border border-purple-500/50 bg-white/5 shadow-[0_0_30px_rgba(168,85,247,0.25)]">
-          <div className="flex h-14 w-14 items-center justify-center rounded-full border border-purple-500/40 bg-[#151124] text-2xl font-black text-purple-400">
-            M
-          </div>
-        </div>
-
-        <h1 className="text-center text-5xl font-black uppercase leading-none tracking-tight md:text-7xl">
-          <span className="block text-white">Welcome To</span>
-          <span className="block text-purple-500">MangaNest</span>
-        </h1>
-
-        <div className="my-5 flex items-center justify-center gap-3">
-          <div className="h-[2px] w-12 bg-purple-500/70" />
-          <div className="h-3 w-3 rotate-45 bg-purple-500" />
-          <div className="h-[2px] w-12 bg-purple-500/70" />
-        </div>
-
-        <p className="mb-8 text-center text-base text-gray-400 md:text-lg">
-          Log in or create an account to start building your manga library.
-        </p>
-
-        <form
-          onSubmit={handleSubmit}
-          className="w-full max-w-xl rounded-3xl border border-white/10 bg-white/[0.04] p-8 shadow-[0_0_40px_rgba(0,0,0,0.45)] backdrop-blur-md"
+    <main className="min-h-screen bg-[#090912] text-white flex flex-col items-center justify-center px-4">
+      {/* Logo */}
+      <Link href="/manganest" className="flex items-center gap-2 mb-10">
+        <span className="text-3xl">🌸</span>
+        <span
+          className="text-3xl font-bold tracking-widest text-white"
+          style={{ fontFamily: "'Bebas Neue', sans-serif" }}
         >
-          <button
-            type="button"
-            onClick={handleGoogleLogin}
-            className="mb-7 flex w-full items-center justify-center gap-3 rounded-2xl bg-white px-5 py-4 text-lg font-medium text-gray-700 transition hover:scale-[1.01]"
+          MangaNest
+        </span>
+      </Link>
+
+      {/* Card */}
+      <div className="w-full max-w-sm bg-[#0f0f1a] border border-[#2a2a3d] rounded-2xl p-8 space-y-6">
+        <div>
+          <h1
+            className="text-2xl font-bold tracking-wider text-white"
+            style={{ fontFamily: "'Bebas Neue', sans-serif" }}
           >
-            <span className="text-xl font-bold text-[#4285F4]">G</span>
-            Continue with Google
-          </button>
+            Welcome back
+          </h1>
+          <p className="text-gray-500 text-sm mt-1">Sign in to your library</p>
+        </div>
 
-          <div className="mb-6 flex items-center gap-4">
-            <div className="h-px flex-1 bg-white/10" />
-            <span className="text-sm font-semibold tracking-[0.2em] text-gray-500">
-              OR
-            </span>
-            <div className="h-px flex-1 bg-white/10" />
+        {/* Error */}
+        {error && (
+          <div className="bg-rose-900/30 border border-rose-700 text-rose-300 rounded-lg px-4 py-3 text-xs">
+            {error}
           </div>
+        )}
 
-          <div className="mb-5">
-            <label className="mb-2 block text-lg text-gray-300">
-              Email address
+        {/* Google button */}
+        <button
+          onClick={handleGoogleLogin}
+          disabled={googleLoading || loading}
+          className="w-full flex items-center justify-center gap-3 py-2.5 rounded-full bg-white hover:bg-gray-100 text-gray-800 text-sm font-semibold transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+        >
+          <GoogleIcon />
+          {googleLoading ? "Signing in..." : "Continue with Google"}
+        </button>
+
+        {/* Divider */}
+        <div className="flex items-center gap-3">
+          <div className="flex-1 h-px bg-[#2a2a3d]" />
+          <span className="text-gray-600 text-xs">or</span>
+          <div className="flex-1 h-px bg-[#2a2a3d]" />
+        </div>
+
+        {/* Email form */}
+        <form onSubmit={handleEmailLogin} className="space-y-4">
+          <div className="space-y-1">
+            <label className="text-xs text-gray-500 uppercase tracking-wider">
+              Email
             </label>
-            <div className="flex items-center gap-3 rounded-2xl border border-white/10 bg-white/[0.04] px-4 py-4 text-gray-400">
-              <Mail size={20} />
-              <input
-                type="email"
-                placeholder="you@example.com"
-                className="w-full bg-transparent text-white placeholder:text-gray-500 outline-none"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                required
-              />
-            </div>
+            <input
+              id="email"
+              name="email"
+              type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              placeholder="you@example.com"
+              required
+              className="w-full bg-[#13131f] border border-[#2a2a3d] rounded-xl px-4 py-2.5 text-sm text-white placeholder-gray-600 focus:outline-none focus:border-[#c084fc] focus:ring-1 focus:ring-[#c084fc] transition-colors"
+            />
           </div>
 
-          <div className="mb-3">
-            <div className="mb-2 flex items-center justify-between">
-              <label className="block text-lg text-gray-300">Password</label>
-              <button
-                type="button"
-                className="text-sm text-purple-400 hover:text-purple-300"
-              >
-                Forgot password?
-              </button>
-            </div>
-
-            <div className="flex items-center gap-3 rounded-2xl border border-white/10 bg-white/[0.04] px-4 py-4 text-gray-400">
-              <Lock size={20} />
-              <input
-                type="password"
-                placeholder="Enter your password"
-                className="w-full bg-transparent text-white placeholder:text-gray-500 outline-none"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                required
-              />
-            </div>
+          <div className="space-y-1">
+            <label className="text-xs text-gray-500 uppercase tracking-wider">
+              Password
+            </label>
+            <input
+              id="password"
+              name="password"
+              type="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              placeholder="••••••••"
+              required
+              className="w-full bg-[#13131f] border border-[#2a2a3d] rounded-xl px-4 py-2.5 text-sm text-white placeholder-gray-600 focus:outline-none focus:border-[#c084fc] focus:ring-1 focus:ring-[#c084fc] transition-colors"
+            />
           </div>
-
-          {error && <p className="mt-4 text-sm text-red-400">{error}</p>}
 
           <button
             type="submit"
-            className="mt-8 w-full rounded-2xl bg-gradient-to-r from-purple-500 to-purple-600 px-5 py-4 text-xl font-bold text-white shadow-[0_0_25px_rgba(168,85,247,0.45)] transition hover:scale-[1.01] hover:from-purple-400 hover:to-purple-500"
+            disabled={loading || googleLoading}
+            className="w-full py-2.5 rounded-full bg-[#c084fc] hover:bg-[#a855f7] text-white text-sm font-semibold transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
           >
-            Log In
+            {loading ? "Signing in..." : "Sign In"}
           </button>
-
-          <p className="mt-6 text-center text-gray-400">
-            Don&apos;t have an account?{" "}
-            <Link
-              href="/manganest/signup"
-              className="font-medium text-purple-400 hover:text-purple-300"
-            >
-              Sign up
-            </Link>
-          </p>
         </form>
 
-        <p className="mt-8 text-sm tracking-wide text-gray-500">
-          MANGANEST © 2026
+        {/* Footer */}
+        <p className="text-center text-xs text-gray-600">
+          Don't have an account?{" "}
+          <Link
+            href="/manganest/signup"
+            className="text-[#c084fc] hover:underline"
+          >
+            Sign up
+          </Link>
         </p>
       </div>
-    </div>
+    </main>
   );
+}
+
+function GoogleIcon() {
+  return (
+    <svg width="18" height="18" viewBox="0 0 18 18">
+      <path fill="#4285F4" d="M17.64 9.2c0-.637-.057-1.251-.164-1.84H9v3.481h4.844c-.209 1.125-.843 2.078-1.796 2.717v2.258h2.908c1.702-1.567 2.684-3.875 2.684-6.615z"/>
+      <path fill="#34A853" d="M9 18c2.43 0 4.467-.806 5.956-2.184l-2.908-2.258c-.806.54-1.837.86-3.048.86-2.344 0-4.328-1.584-5.036-3.711H.957v2.332A8.997 8.997 0 0 0 9 18z"/>
+      <path fill="#FBBC05" d="M3.964 10.707A5.41 5.41 0 0 1 3.682 9c0-.593.102-1.17.282-1.707V4.961H.957A8.996 8.996 0 0 0 0 9c0 1.452.348 2.827.957 4.039l3.007-2.332z"/>
+      <path fill="#EA4335" d="M9 3.58c1.321 0 2.508.454 3.44 1.345l2.582-2.58C13.463.891 11.426 0 9 0A8.997 8.997 0 0 0 .957 4.961L3.964 7.293C4.672 5.166 6.656 3.58 9 3.58z"/>
+    </svg>
+  );
+}
+
+function getFriendlyError(code) {
+  switch (code) {
+    case "auth/user-not-found":
+    case "auth/wrong-password":
+    case "auth/invalid-credential":
+      return "Invalid email or password.";
+    case "auth/invalid-email":
+      return "Please enter a valid email address.";
+    case "auth/too-many-requests":
+      return "Too many attempts. Please try again later.";
+    case "auth/popup-closed-by-user":
+      return "Google sign in was cancelled.";
+    default:
+      return "Something went wrong. Please try again.";
+  }
 }
