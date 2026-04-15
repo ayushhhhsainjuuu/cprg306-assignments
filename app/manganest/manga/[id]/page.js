@@ -148,7 +148,7 @@ export default function MangaDetailPage() {
   const allTags = [...genres, ...themes];
 
   return (
-    <main className="min-h-screen bg-[#090912] text-white">
+    <main data-page="manganest" className="min-h-screen bg-[#090912] text-white">
       {/* Header */}
       <header className="sticky top-0 z-50 bg-[#090912]/90 backdrop-blur-md border-b border-[#1e1e30]">
         <div className="max-w-5xl mx-auto px-4 py-4 flex items-center gap-4">

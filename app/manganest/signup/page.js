@@ -64,7 +64,7 @@ export default function SignupPage() {
   };
 
   return (
-    <main className="min-h-screen bg-[#090912] text-white flex flex-col items-center justify-center px-4">
+    <main data-page="manganest" className="min-h-screen bg-[#090912] text-white flex flex-col items-center justify-center px-4">
       {/* Logo */}
       <Link href="/manganest" className="flex items-center gap-2 mb-10">
         <span className="text-3xl">🌸</span>

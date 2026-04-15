@@ -78,6 +78,7 @@ export default function LibraryPage() {
 
   return (
     <main
+        data-page="manganest"
       className="min-h-screen transition-colors duration-200"
       style={{ background: "var(--bg-primary)", color: "var(--text-primary)" }}
     >
