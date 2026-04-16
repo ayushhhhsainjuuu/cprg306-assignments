@@ -1,3 +1,5 @@
+"use client";
+
 import Link from "next/link";
 
 export default function Home() {
@@ -32,26 +34,25 @@ export default function Home() {
 
         {/* MangaNest featured card */}
         <Link href="/manganest" style={{ textDecoration: "none", display: "block", marginBottom: "48px" }}>
-          <div style={{
-            background: "linear-gradient(135deg, #1a0533 0%, #2d1054 50%, #1a0533 100%)",
-            border: "1px solid #7c3aed",
-            borderRadius: "16px",
-            padding: "32px",
-            position: "relative",
-            overflow: "hidden",
-            cursor: "pointer",
-            transition: "transform 0.2s ease, box-shadow 0.2s ease",
-          }}
+          <div
+            style={{
+              background: "linear-gradient(135deg, #1a0533 0%, #2d1054 50%, #1a0533 100%)",
+              border: "1px solid #7c3aed",
+              borderRadius: "16px",
+              padding: "32px",
+              position: "relative",
+              overflow: "hidden",
+              cursor: "pointer",
+            }}
             onMouseEnter={(e) => {
-              e.currentTarget.style.transform = "translateY(-2px)";
               e.currentTarget.style.boxShadow = "0 0 40px rgba(192,132,252,0.2)";
+              e.currentTarget.style.transform = "translateY(-2px)";
             }}
             onMouseLeave={(e) => {
-              e.currentTarget.style.transform = "translateY(0)";
               e.currentTarget.style.boxShadow = "none";
+              e.currentTarget.style.transform = "translateY(0)";
             }}
           >
-            {/* Glow effect */}
             <div style={{ position: "absolute", top: "-40px", right: "-40px", width: "200px", height: "200px", background: "radial-gradient(circle, rgba(192,132,252,0.15) 0%, transparent 70%)", borderRadius: "50%" }} />
 
             <div style={{ display: "flex", alignItems: "center", gap: "12px", marginBottom: "12px" }}>
@@ -69,21 +70,21 @@ export default function Home() {
                 </span>
               ))}
             </div>
-            <div style={{ marginTop: "20px", fontSize: "13px", color: "#7c3aed", fontWeight: "500" }}>
+            <div style={{ marginTop: "20px", fontSize: "13px", color: "#a78bfa", fontWeight: "500" }}>
               View Project →
             </div>
           </div>
         </Link>
 
         {/* Week assignments */}
-        <div style={{ marginBottom: "16px" }}>
-          <h2 style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: "18px", letterSpacing: "0.1em", color: "#6b7280", margin: "0 0 16px" }}>
-            Weekly Assignments
-          </h2>
-          <div style={{ display: "grid", gap: "8px" }}>
-            {weeks.map((week) => (
-              <Link key={week.href} href={week.href} style={{ textDecoration: "none" }}>
-                <div style={{
+        <h2 style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: "18px", letterSpacing: "0.1em", color: "#6b7280", margin: "0 0 16px" }}>
+          Weekly Assignments
+        </h2>
+        <div style={{ display: "grid", gap: "8px" }}>
+          {weeks.map((week) => (
+            <Link key={week.href} href={week.href} style={{ textDecoration: "none" }}>
+              <div
+                style={{
                   display: "flex",
                   alignItems: "center",
                   justifyContent: "space-between",
@@ -91,31 +92,32 @@ export default function Home() {
                   background: "#0f0f1a",
                   border: "1px solid #1e1e30",
                   borderRadius: "10px",
-                  transition: "border-color 0.2s ease, background 0.2s ease",
                   cursor: "pointer",
                 }}
-                  onMouseEnter={(e) => {
-                    e.currentTarget.style.borderColor = "#7c3aed";
-                    e.currentTarget.style.background = "#130d1f";
-                  }}
-                  onMouseLeave={(e) => {
-                    e.currentTarget.style.borderColor = "#1e1e30";
-                    e.currentTarget.style.background = "#0f0f1a";
-                  }}
-                >
-                  <div style={{ display: "flex", alignItems: "center", gap: "16px" }}>
-                    <span style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: "13px", color: "#7c3aed", letterSpacing: "0.05em", minWidth: "64px" }}>
-                      {week.label}
-                    </span>
-                    <span style={{ fontSize: "14px", color: "#d1d5db" }}>{week.desc}</span>
-                  </div>
-                  <span style={{ fontSize: "16px", color: "#374151" }}>→</span>
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.borderColor = "#7c3aed";
+                  e.currentTarget.style.background = "#130d1f";
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.borderColor = "#1e1e30";
+                  e.currentTarget.style.background = "#0f0f1a";
+                }}
+              >
+                <div style={{ display: "flex", alignItems: "center", gap: "16px" }}>
+                  <span style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: "13px", color: "#7c3aed", letterSpacing: "0.05em", minWidth: "64px" }}>
+                    {week.label}
+                  </span>
+                  <span style={{ fontSize: "14px", color: "#d1d5db" }}>{week.desc}</span>
                 </div>
-              </Link>
-            ))}
-          </div>
+                <span style={{ fontSize: "16px", color: "#374151" }}>→</span>
+              </div>
+            </Link>
+          ))}
         </div>
 
+        <p style={{ marginTop: "48px", fontSize: "12px", color: "#374151", textAlign: "center" }}>
+          By Ayush Sainju · SAIT CPRG 306 · 2026
+        </p>
       </div>
     </main>
   );
